@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
@@ -64,6 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * 新增员工
      */
     public void save(EmployeeDTO employeeDTO){
+        System.out.println("Current Thread id:" + Thread.currentThread().getId());
         Employee employee = new Employee();
 
         //对象属性拷贝
@@ -78,8 +80,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //set current record's createUser and updateUser's id
         //ToDo it would be changed to the current user's id
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
     }
