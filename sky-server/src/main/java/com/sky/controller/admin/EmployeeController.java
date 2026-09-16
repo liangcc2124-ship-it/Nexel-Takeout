@@ -100,4 +100,42 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /**
+     * Query employee imformation according to id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation(("Query employee imformation according to id"))
+    public Result<Employee> getById(@PathVariable Long id){
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * start or stop employee account
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("start or stop employee account")
+    public Result startOrStop(@PathVariable Integer status,Long id){
+        log.info("start or stop employee account:{},{}",status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+    /**
+     * Edit employee information
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("Edit employee information")
+    public Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("Edit employee information:{}",employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
 }
